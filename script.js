@@ -10,9 +10,20 @@ var parts;
 var num_x;
 var num_y;
 
+var postcard = {
+	width: 145,
+	height: 105,
+}
+
 $(document).ready(function(){
 	showState("upload");
 	canvas = document.getElementById("canvas");
+	$(".auto-fix-aspect").on("click", function(){
+		applyMenu();
+		fixAspectRatio();
+		drawImage();
+	});
+	$(".rec-aspect").text(roundToFixed(postcard.width/postcard.height, 3) + " (" + postcard.width + "x" + postcard.height + "mm)");
 	ctx = canvas.getContext("2d");
 	$(".image-state .another").on("click", function(){
 		showState("upload");
@@ -146,6 +157,7 @@ function processFiles(files){
 		$("#canvas").show();
 		showState("image");
 		applyMenu();
+		fixAspectRatio();
 		drawImage();
 		$(".loading-overlay").fadeOut();
 	}
@@ -156,8 +168,9 @@ function showState(state){
 	$(".state").hide();
 	$("."+state+"-state").show();
 	if(state == "image"){
+		var aspect = postcard.width/postcard.height;
 		$(".image-props .width").val(image.width/4);
-		$(".image-props .height").val(image.height/4);
+		$(".image-props .height").val(Math.round(image.width/4/aspect));
 		$(".image-props .resolution").val(image.width + "x" + image.height);
 		$(".image-props .name").val(image.name);
 	}
@@ -333,5 +346,58 @@ function drawImage(){
 		dx += parts[x][0].outer.width + border;
 	}
 	ctx.restore();
-	$(".image-props .aspect").val((viewport.width+padding.left+padding.right)/(viewport.height+padding.top+padding.bottom));
+	$(".image-props .aspect").val(roundToFixed(parts[0][0].outer.width/parts[0][0].outer.height, 3));
+	var numCards = num_x*num_y;
+	$("input[type=submit]").val("Submit (" +numCards+ " cards)");
+	var dpi = calcDpi();
+	$(".dpi-x").val(roundToFixed(dpi.x, 3));
+	$(".dpi-y").val(roundToFixed(dpi.y, 3));
+	$(".stretch").val(roundToFixed(dpi.x/dpi.y, 3));
+}
+
+function calcDpi(){
+	var w_cm = postcard.width/10;
+	var h_cm = postcard.height/10;
+	var w_in = w_cm/2.54;
+	var h_in = h_cm/2.54;
+	var dots_x = parts[0][0].outer.width;
+	var dots_y = parts[0][0].outer.height;
+	return {
+		x: dots_x/w_in,
+		y: dots_y/h_in,
+	};
+}
+function fixAspectRatio(){
+	var oldHeight = Math.round($(".height").val());
+	var newHeight = oldHeight;
+	var w = (viewport.width + padding.left + padding.right);
+	var h = (viewport.height + padding.top + padding.bottom);
+	var aspect = w/h;
+	var optimal = postcard.width / postcard.height;
+	var d1, d2;
+	if(aspect > optimal){
+		do {
+			newHeight++;
+			h++;
+			aspect = w/h;
+		} while(aspect > optimal);
+		d1 = Math.abs(optimal-aspect);
+		d2 = Math.abs(optimal-w/(h-1));
+		if(d2 < d1){
+			newHeight--;
+		}
+	} else if(aspect < optimal){
+		do {
+			newHeight--;
+			h--;
+			aspect = w/h;
+		} while(aspect < optimal);
+		d1 = Math.abs(optimal-aspect);
+		d2 = Math.abs(optimal-w/(h+1));
+		if(d2 < d1){
+			newHeight++;
+		}
+	}
+	$(".image-state .height").val(newHeight);
+	applyMenu();
 }

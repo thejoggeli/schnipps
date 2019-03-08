@@ -22,3 +22,12 @@ Toast.setClass = function(c){
 	$(".toast").removeClass("success");	
 	$(".toast").addClass(c);	
 }
+
+function roundTo(val, decimals){
+	var p = Math.pow(10, decimals);
+	return Math.round(val*p)/p;
+}
+
+function roundToFixed(val, decimals){
+	return roundTo(val,decimals).toFixed(decimals);
+}
