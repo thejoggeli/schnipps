@@ -1,0 +1,22 @@
+body {margin:0;overflow-y:scroll;font-family:arial;}
+.canvas-wrap {}
+form {
+	margin:8px;
+}
+canvas {
+	float:left;
+	display:none;
+}
+#image-drop {
+	width:200px;height:200px;
+	border:1px solid black;
+	background:#eee;
+	margin-top:5px;
+	float:left;
+	margin:8px;
+	margin-top:0;
+}
+#image-drop.drag {
+	background:yellow;
+}
+.image-props {display:none;padding:8px;}
