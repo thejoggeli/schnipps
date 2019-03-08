@@ -382,7 +382,7 @@ function drawImage(){
 	$(".result-dpi").html(roundToFixed((dpi.x+dpi.y)/2, 3));
 	var rw = image.width/viewport.width * postcard.width;
 	var rh = image.height/viewport.height * postcard.height;
-	$(".result-size").html(Math.round(rw)/10+"x"+Math.round(rh)/10);
+	$(".result-size").html(Math.round(rw/10)+"x"+Math.round(rh/10));
 }
 
 function calcDpi(){
