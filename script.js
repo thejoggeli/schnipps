@@ -87,9 +87,20 @@ $(document).ready(function(){
 			contentType: false,
 		}).done(function(json){
 			console.log(json);
-			$(".processing-overlay").hide();
-			$(".done-overlay").show();
-			$(".download-link").attr("href", json.download_link);
+			if(json.error !== undefined){
+				if(json.errorMessage !== undefined){
+					Toast.error(json.errorMessage, 2.5);
+				} else {
+					Toast.error("Unknown error", 2.5);					
+				}	
+				$(".processing-overlay").fadeOut();
+			} else {
+				$(".processing-overlay").hide();
+				$(".done-overlay").show();
+				$(".download-link").attr("href", json.download_link);
+				Toast.success("Success!", 2.5);				
+			}
+			
 		}).fail(function(data){
 			console.log(data);
 			alert("Error (" + data.status + " - " + data.statusText + ")");
@@ -103,6 +114,7 @@ $(document).ready(function(){
 	$(window).on("resize", function(){
 		drawImage();
 	});
+	Toast.info("Welcome to the Schnippselisierer", 2.5);
 });
 function applyMenu(){
 	var _padding = parseInt($(".image-props .padding").val());

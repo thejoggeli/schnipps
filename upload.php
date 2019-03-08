@@ -1,5 +1,14 @@
 <?php
 	header('Content-type: application/json');
+	
+	session_start();
+	$wait = 60;
+	$time = $_SESSION["save_time"] ?? 0;
+	if(time()-$time < $wait){
+		$remain = $wait - (time()-$time);
+		echo json_encode(["error" => "too-soon", "errorMessage" => "Wait $remain seconds"]);
+		exit;
+	}	
 
 	$json = [];
 	
@@ -73,6 +82,8 @@
 	}
 	
 	$json["download_link"] = $partspath . "/" . $zipname;
+	
+	$_SESSION["save_time"] = time();
 
 	echo json_encode($json);
 

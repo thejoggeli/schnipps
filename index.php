@@ -6,7 +6,9 @@
 	<title>Der Schnippselisierer</title>
 	<script src="jquery-3.2.1.min.js"></script>
 	<script src="script.js"></script>
+	<script src="toast.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="toast.css">
 </body><body>
 	<div class="loading-overlay overlay">
 		<div class="fadeout"></div>
@@ -68,6 +70,11 @@
 		</div>
 		<div class="canvas-wrap">
 			<canvas id="canvas"></canvas>
+		</div>
+	</div>
+	<div class="toast">
+		<div class="inner">
+			<span class="toast-text">Toast</div>
 		</div>
 	</div>
 </body></html>
