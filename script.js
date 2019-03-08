@@ -375,6 +375,7 @@ function drawImage(){
 	$(".dpi-y").val(roundToFixed(dpi.y, 3));
 	$(".stretch").val(roundToFixed(dpi.x/dpi.y, 3));
 	$(".source-aspect").val(roundToFixed(image.width/image.height, 3));
+	$(".result-dpi").html(Math.round((dpi.x+dpi.y)/2));
 }
 
 function calcDpi(){

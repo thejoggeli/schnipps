@@ -84,6 +84,7 @@
 			<div class="clearfix"></div>
 			<div class="desc">
 				Card aspect ratio is <span class="card-aspect">...</span>. 
+				Resulting DPI is <span class="result-dpi">...</span>. 
 				<a href="javascript:;" class="more-info">More info</a>
 				<a href="javascript:;" class="less-info">Less info</a> 
 			</div>
