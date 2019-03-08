@@ -33,10 +33,11 @@
 	
 	$partspath = "download/" . pathinfo($filename)["filename"];
 	mkdir($partspath);	
+	$nakedname = pathinfo($filename)["filename"];
 	for($x = 0; $x < $num_x; $x++){
 		for($y = 0; $y < $num_y; $y++){
 			$part = $parts[$x][$y];
-			$partname = str_pad($x, 3, '0', STR_PAD_LEFT) . "_" . str_pad($y, 3, '0', STR_PAD_LEFT) . "_" . $filename;
+			$partname = str_pad($x, 3, '0', STR_PAD_LEFT) . "_" . str_pad($y, 3, '0', STR_PAD_LEFT) . "_" . $nakedname . ".png";
 			$img = imagecreatetruecolor($part->outer->width, $part->outer->height);
 			$bgcolor = ImageColorAllocate($img, 0, 0, 0);
 			ImageFilledRectangle($img, 0, 0, $part->outer->width, $part->outer->height, $bgcolor);
@@ -49,8 +50,9 @@
 			$quadcolor = ImageColorAllocate($img, 0xFF, 0, 0);
 			for($i = 0; $i < 4; $i++){
 				$quad = $part->quads[$i];
-				ImageFilledRectangle($img, $quad->x, $quad->y, $quad->x+$quad->width, $quad->y+$quad->height, $quadcolor);
+				ImageFilledRectangle($img, $quad->x, $quad->y, $quad->x+$quad->width-1, $quad->y+$quad->height-1, $quadcolor);
 			}			
+			
 			imagepng($img, $partspath . "/" . $partname);
 			$zipfiles[] = $partname;
 		}
