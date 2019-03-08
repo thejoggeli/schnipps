@@ -14,6 +14,9 @@ $(document).ready(function(){
 	showState("upload");
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
+	$(".image-state .another").on("click", function(){
+		showState("upload");
+	});
 	$(".image-state input[type=text]").on("change", function(){
 		applyMenu();
 		drawImage();

@@ -53,8 +53,8 @@
 				<div><span class="label">Border&nbsp;</span> <input class="border" type="text" value="8"></div>
 			</div>
 			<div class="group"> 
-				<div><span class="label">Aspect</span> <input class="aspect" type="text" value="..."></div>
-				<div><span class="label">DPI&nbsp;&nbsp;&nbsp;</span> <input class="dpi" type="text" value="..."></div>
+				<div><span class="label">Aspect</span> <input class="aspect" type="text" value="..." readonly></div>
+				<div><span class="label">DPI&nbsp;&nbsp;&nbsp;</span> <input class="dpi" type="text" value="..." readonly></div>
 			</div>
 			<form id="upload" class="group" method="post" action="upload.php" enctype="multipart/form-data">
 				<input id="image-upload" name="files[]" type="file" accept=".png, .jpg, .jpeg" style="display:none">
