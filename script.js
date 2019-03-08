@@ -380,8 +380,14 @@ function drawImage(){
 	$(".stretch").html(roundToFixed(dpi.x/dpi.y, 3));
 	$(".source-aspect").html(roundToFixed(image.width/image.height, 3));
 	$(".result-dpi").html(roundToFixed((dpi.x+dpi.y)/2, 3));
-	var rw = image.width/viewport.width * postcard.width;
-	var rh = image.height/viewport.height * postcard.height;
+	var rw = 0;
+	var rh = 0;
+	for(var x = 0; x < num_x; x++){
+		rw += parts[x][0].view.width/parts[x][0].outer.width*postcard.width;
+	}
+	for(var y = 0; y < num_y; y++){
+		rh += parts[0][y].view.height/parts[0][y].outer.height*postcard.height;
+	}
 	$(".result-size").html(Math.round(rw/10)+"x"+Math.round(rh/10));
 }
 
