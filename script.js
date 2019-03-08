@@ -18,18 +18,27 @@ var postcard = {
 $(document).ready(function(){
 	showState("upload");
 	canvas = document.getElementById("canvas");
-	$(".auto-fix-aspect").on("click", function(){
-		applyMenu();
-		fixAspectRatio();
-		drawImage();
+	$(".more-info").on("click", function(){
+		$(".more").show();
+		$(".more-info").hide();
+		$(".less-info").show();
+		Storage.cookie.set("show-more", true);
 	});
+	$(".less-info").on("click", function(){
+		$(".more").hide();
+		$(".less-info").hide();
+		$(".more-info").show();
+		Storage.cookie.set("show-more", false);
+	});
+	if(Storage.cookie.get("show-more", false)){
+		$(".more-info").trigger("click");
+	}
 	$(".rec-aspect").text(roundToFixed(postcard.width/postcard.height, 3) + " (" + postcard.width + "x" + postcard.height + "mm)");
 	ctx = canvas.getContext("2d");
 	$(".image-state .another").on("click", function(){
 		showState("upload");
 	});
 	$(".image-state input[type=text]").on("change", function(){
-		applyMenu();
 		drawImage();
 	});
 	$("#image-drop").on("click", function(){
@@ -132,8 +141,19 @@ function applyMenu(){
 	var _border = parseInt($(".image-props .border").val());
 	var _width = parseInt($(".image-props .width").val());
 	var _height = parseInt($(".image-props .height").val());
+	if(_padding < 1) _padding = 1;
+	if(_border < 0) _padding = 0;
+	if(_width < _padding*2) _width = _padding*2;
+	if(_height < 1) _height = 1;
+	$(".image-props .padding").val(_padding);
+	$(".image-props .border").val(_border);
+	$(".image-props .width").val(_width);
+	$(".image-props .height").val(_height);
 	viewport.width = _width;
 	viewport.height = _height;
+	postcard.width = parseInt($(".image-props .card-width").val());
+	postcard.height = parseInt($(".image-props .card-height").val());
+	$(".card-aspect").text(roundToFixed(postcard.width/postcard.height, 3));
 	padding.left = padding.right = padding.top = padding.bottom = _padding;
 	border = _border;
 }
@@ -156,8 +176,6 @@ function processFiles(files){
 		$(".image-props").show();
 		$("#canvas").show();
 		showState("image");
-		applyMenu();
-		fixAspectRatio();
 		drawImage();
 		$(".loading-overlay").fadeOut();
 	}
@@ -172,7 +190,7 @@ function showState(state){
 		$(".image-props .width").val(image.width/4);
 		$(".image-props .height").val(Math.round(image.width/4/aspect));
 		$(".image-props .resolution").val(image.width + "x" + image.height);
-		$(".image-props .name").val(image.name);
+		$(".image-props .name").text("Image: " + image.name);
 	}
 }
 function Part(image, x, y, w, h){
@@ -286,6 +304,9 @@ Part.prototype.updateQuads = function(){
 function drawImage(){
 	if(image === null) return;
 	
+	applyMenu();
+	fixAspectRatio();
+	
 	num_x = Math.ceil(image.width/viewport.width);
 	num_y = Math.ceil(image.height/viewport.height);
 	
@@ -353,6 +374,7 @@ function drawImage(){
 	$(".dpi-x").val(roundToFixed(dpi.x, 3));
 	$(".dpi-y").val(roundToFixed(dpi.y, 3));
 	$(".stretch").val(roundToFixed(dpi.x/dpi.y, 3));
+	$(".source-aspect").val(roundToFixed(image.width/image.height, 3));
 }
 
 function calcDpi(){
@@ -368,36 +390,32 @@ function calcDpi(){
 	};
 }
 function fixAspectRatio(){
-	var oldHeight = Math.round($(".height").val());
-	var newHeight = oldHeight;
 	var w = (viewport.width + padding.left + padding.right);
-	var h = (viewport.height + padding.top + padding.bottom);
+	var h = w;
 	var aspect = w/h;
 	var optimal = postcard.width / postcard.height;
 	var d1, d2;
 	if(aspect > optimal){
 		do {
-			newHeight++;
 			h++;
 			aspect = w/h;
 		} while(aspect > optimal);
 		d1 = Math.abs(optimal-aspect);
 		d2 = Math.abs(optimal-w/(h-1));
 		if(d2 < d1){
-			newHeight--;
+			h--;
 		}
 	} else if(aspect < optimal){
 		do {
-			newHeight--;
 			h--;
 			aspect = w/h;
 		} while(aspect < optimal);
 		d1 = Math.abs(optimal-aspect);
 		d2 = Math.abs(optimal-w/(h+1));
 		if(d2 < d1){
-			newHeight++;
+			h++;
 		}
 	}
-	$(".image-state .height").val(newHeight);
+	$(".image-state .height").val(h-padding.top-padding.bottom);
 	applyMenu();
 }

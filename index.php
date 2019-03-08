@@ -5,6 +5,8 @@
 <html><head>
 	<title>Der Schnippselisierer</title>
 	<script src="jquery-3.2.1.min.js"></script>
+	<script src="jquery.cookie.js"></script>
+	<script src="storage.js"></script>
 	<script src="script.js"></script>
 	<script src="toast.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
@@ -42,25 +44,35 @@
 	</div>
 	<div class="image-state state">
 		<div class="image-props">
-			<div class="group">
-				<div><span>Name </span><input class="info name" type="text" value="..." readonly></div>
-				<div><span>Size </span><input class="info resolution" type="text" value="720x480" readonly></div>
+			<div class="group group-size">
+				<div class="title">Card size (mm)</div>
+				<div><span class="label">Width&nbsp;</span> <input class="card-width" name="width" type="text" value="145"></div>
+				<div><span class="label">Height</span> <input class="card-height" name="height" type="text" value="105"></div>
 			</div>
 			<div class="group group-size">
+				<div class="title">Crop size (px)</div>
 				<div><span class="label">Width&nbsp;</span> <input class="width" name="width" type="text"></div>
-				<div><span class="label">Height</span> <input class="height" name="height" type="text"></div>
+				<div><span class="label">Height</span> <input class="height" name="height" type="text" readonly></div>
 			</div>
 			<div class="group group-padding"> 
+				<div class="title">Options</div>
 				<div><span class="label">Padding</span> <input class="padding" type="text" value="16"> </div>
 				<div><span class="label">Border&nbsp;</span> <input class="border" type="text" value="8"></div>
 			</div>
-			<div class="group group-aspect"> 
-				<div><span class="label">Aspect&nbsp;</span> <input class="aspect" type="text" value="..." readonly></div>
-				<div><span class="label">Stretch</span> <input class="stretch" type="text" value="..." readonly></div>
+			<div class="group more">
+				<div class="title name">&nbsp;</div>
+				<div><span>Size&nbsp;&nbsp; </span><input class="info resolution" type="text" value="720x480" readonly></div>
+				<div><span>Aspect </span><input class="info source-aspect" type="text" value="..." readonly></div>
 			</div>
-			<div class="group group-dpi"> 
-				<div><span class="label">DPI(h)</span> <input class="dpi-x" type="text" value="..." readonly></div>
-				<div><span class="label">DPI(v)</span> <input class="dpi-y" type="text" value="..." readonly></div>
+			<div class="group group-aspect more"> 
+				<div class="title">Result</div>
+				<div><span class="label">Stretch</span> <input class="stretch" type="text" value="..." readonly></div>
+				<div><span class="label">Aspect&nbsp;</span> <input class="aspect" type="text" value="..." readonly></div>
+			</div>
+			<div class="group group-dpi more"> 
+				<div class="title">DPI</div>
+				<div><span class="label">(h)</span> <input class="dpi-x" type="text" value="..." readonly></div>
+				<div><span class="label">(v)</span> <input class="dpi-y" type="text" value="..." readonly></div>
 			</div>
 			<form id="upload" class="group" method="post" action="upload.php" enctype="multipart/form-data">
 				<input id="image-upload" name="files[]" type="file" accept=".png, .jpg, .jpeg" style="display:none">
@@ -71,9 +83,9 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="desc">
-				Stretch should be as close to 1.0 as possible. 
-				Recommended aspect ratio is <span class="rec-aspect"></span>. 
-				<a href="javascript:;" class="auto-fix-aspect">Auto-fix</a>			
+				Card aspect ratio is <span class="card-aspect">...</span>. 
+				<a href="javascript:;" class="more-info">More info</a>
+				<a href="javascript:;" class="less-info">Less info</a> 
 			</div>
 		</div>
 		<div class="canvas-wrap">
