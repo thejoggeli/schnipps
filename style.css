@@ -1,22 +1,60 @@
-body {margin:0;overflow-y:scroll;font-family:arial;}
+@font-face {font-family: 'VeraMono'; src: url('font/VeraMono.ttf'); font-weight: normal; font-style: normal;}
+@font-face {font-family: 'VeraMono'; src: url('font/VeraMono-Bold.ttf'); font-weight: bold; font-style: normal;}
+@font-face {font-family: 'VeraMono'; src: url('font/VeraMono-Italic.ttf'); font-weight: normal; font-style: italic;}
+@font-face {font-family: 'VeraMono'; src: url('font/VeraMono-Bold-Italic.ttf'); font-weight: bold; font-style: italic;}
+body {margin:0;overflow-y:scroll;font-family:arial;font-family:"VeraMono";background:#eee;overflow-x:hidden;}
 .canvas-wrap {}
-form {
-	margin:8px;
+.state {display:none}
+canvas {}
+.overlay {position:fixed;height:100%;width:100%;z-index:50;display:none;}
+.overlay .fadeout {width:100%;height:100%;background:#000d;}
+.overlay .text {left:50%;top:50%;position:fixed;transform: translate(-50%, -50%);text-align:center;font-size:36px;color:white;}
+.overlay .loader {width:64px;margin-top:20px;}
+.overlay .close {
+	position:absolute;right:0;top:0;color:white;font-size:32px;width:40px;height:40px;text-align:center;cursor:pointer;user-select:none;
+	border-left:2px solid white;
+	border-bottom:2px solid white;
 }
-canvas {
-	float:left;
-	display:none;
+.overlay .close:hover {cursor:pointer;color:yellow;border-color:yellow;}
+.image-drop-wrap {
+	padding:50px;width:100%;height:100%;
+	box-sizing:border-box;
+	position:fixed;
 }
 #image-drop {
-	width:200px;height:200px;
+	width:100%;height:100%;
+	box-sizing:border-box;
 	border:1px solid black;
-	background:#eee;
-	margin-top:5px;
-	float:left;
-	margin:8px;
-	margin-top:0;
+	background:white;cursor:pointer;
 }
 #image-drop.drag {
 	background:yellow;
 }
-.image-props {display:none;padding:8px;}
+@keyframes example {
+  0% {color:blue;}
+  100% {color:red;}
+}
+@keyframes rotate {
+}
+
+.done-overlay a {color:yellow;margin-top:10px;display:inline-block;padding:10px;background:white;border:2px solid blue;color:blue;text-decoration:none;font-size:24px;}
+.done-overlay a:hover {background:yellow;}
+
+.loading-overlay {}
+
+.clearfix {clear:both;}
+
+.image-drop-text {pointer-events:none;left:50%;top:50%;position:fixed;transform: translate(-50%, -50%);
+	animation:example 4s infinite alternate;font-size:36px;text-align:center;
+}
+.image-state .desc {padding-top:6px;font-size:14px;}
+.image-props {padding:8px;background:#eee;font-size:14px;padding-bottom:8px;}
+.image-props .group {float:left;margin-right:8px;}
+.image-props .group > div{margin-bottom:2px;}
+.image-props .label {display:inline-block;}
+.image-state form {}
+.image-state input {border-radius:1px;border:1px solid #888;}
+.image-state input[type=text].info {background:#ddd;}
+.image-state input[type=text] {background:white;width:80px;padding:1px 2px;}
+.image-state input[type=button],
+.image-state input[type=submit] {background:#006;border-color:#006;color:white;cursor:pointer;height:40px;width:80px;font-weight:bold;}
