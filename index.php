@@ -59,21 +59,6 @@
 				<div><span class="label">Padding</span> <input class="padding" type="text" value="16"> </div>
 				<div><span class="label">Border&nbsp;</span> <input class="border" type="text" value="8"></div>
 			</div>
-			<div class="group more">
-				<div class="title name">&nbsp;</div>
-				<div><span>Size&nbsp;&nbsp; </span><input class="info resolution" type="text" value="720x480" readonly></div>
-				<div><span>Aspect </span><input class="info source-aspect" type="text" value="..." readonly></div>
-			</div>
-			<div class="group group-aspect more"> 
-				<div class="title">Result</div>
-				<div><span class="label">Stretch</span> <input class="stretch" type="text" value="..." readonly></div>
-				<div><span class="label">Aspect&nbsp;</span> <input class="aspect" type="text" value="..." readonly></div>
-			</div>
-			<div class="group group-dpi more"> 
-				<div class="title">DPI</div>
-				<div><span class="label">(h)</span> <input class="dpi-x" type="text" value="..." readonly></div>
-				<div><span class="label">(v)</span> <input class="dpi-y" type="text" value="..." readonly></div>
-			</div>
 			<form id="upload" class="group" method="post" action="upload.php" enctype="multipart/form-data">
 				<input id="image-upload" name="files[]" type="file" accept=".png, .jpg, .jpeg" style="display:none">
 				<input type="submit">
@@ -83,10 +68,25 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="desc">
-				Card aspect ratio is <span class="card-aspect">...</span>. 
-				Resulting DPI is <span class="result-dpi">...</span>. 
+				<div class="clearfix"></div>
+				Result is <span class="result-size">...</span>cm @ <span class="result-dpi"></span> DPI.
 				<a href="javascript:;" class="more-info">More info</a>
 				<a href="javascript:;" class="less-info">Less info</a> 
+				<div class="more">
+					<div><span class="desc-caption">Card</span></div>
+					<div><span class="desc-title">Aspect ratio</span><span class="card-aspect">...</span></div>
+					<div><span class="desc-caption">Image</span></div>
+					<div><span class="desc-title">File</span><span class="name"></span></div>
+					<div><span class="desc-title">Dimensions</span><span class="resolution"></span></div>
+					<div><span class="desc-title">Aspect ratio</span><span class="source-aspect"></span></div>
+					<div><span class="desc-caption">Result</span></div>
+					<div><span class="desc-title">DPI avgerage</span><span class="result-dpi"></span></div>
+					<div><span class="desc-title">DPI horizontal</span><span class="dpi-x"></span></div>
+					<div><span class="desc-title">DPI vertical</span><span class="dpi-y"></span></div>
+					<div><span class="desc-title">Stretch (h/v)</span><span class="stretch"></span></div>
+					<div><span class="desc-title">Size</span><span class="result-size">...</span>cm</div>	
+				</div>				
+				
 			</div>
 		</div>
 		<div class="canvas-wrap">

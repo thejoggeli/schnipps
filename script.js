@@ -20,18 +20,22 @@ $(document).ready(function(){
 	canvas = document.getElementById("canvas");
 	$(".more-info").on("click", function(){
 		$(".more").show();
+		$(".less").hide();
 		$(".more-info").hide();
 		$(".less-info").show();
 		Storage.cookie.set("show-more", true);
 	});
 	$(".less-info").on("click", function(){
 		$(".more").hide();
+		$(".less").show();
 		$(".less-info").hide();
 		$(".more-info").show();
 		Storage.cookie.set("show-more", false);
 	});
 	if(Storage.cookie.get("show-more", false)){
 		$(".more-info").trigger("click");
+	} else {
+		$(".less-info").trigger("click");
 	}
 	$(".rec-aspect").text(roundToFixed(postcard.width/postcard.height, 3) + " (" + postcard.width + "x" + postcard.height + "mm)");
 	ctx = canvas.getContext("2d");
@@ -189,7 +193,7 @@ function showState(state){
 		var aspect = postcard.width/postcard.height;
 		$(".image-props .width").val(image.width/4);
 		$(".image-props .height").val(Math.round(image.width/4/aspect));
-		$(".image-props .resolution").val(image.width + "x" + image.height);
+		$(".image-props .resolution").html(image.width + "x" + image.height);
 		$(".image-props .name").text("Image: " + image.name);
 	}
 }
@@ -367,15 +371,18 @@ function drawImage(){
 		dx += parts[x][0].outer.width + border;
 	}
 	ctx.restore();
-	$(".image-props .aspect").val(roundToFixed(parts[0][0].outer.width/parts[0][0].outer.height, 3));
+	$(".image-props .aspect").html(roundToFixed(parts[0][0].outer.width/parts[0][0].outer.height, 3));
 	var numCards = num_x*num_y;
 	$("input[type=submit]").val("Submit (" +numCards+ " cards)");
 	var dpi = calcDpi();
-	$(".dpi-x").val(roundToFixed(dpi.x, 3));
-	$(".dpi-y").val(roundToFixed(dpi.y, 3));
-	$(".stretch").val(roundToFixed(dpi.x/dpi.y, 3));
-	$(".source-aspect").val(roundToFixed(image.width/image.height, 3));
-	$(".result-dpi").html(Math.round((dpi.x+dpi.y)/2));
+	$(".dpi-x").html(roundToFixed(dpi.x, 3));
+	$(".dpi-y").html(roundToFixed(dpi.y, 3));
+	$(".stretch").html(roundToFixed(dpi.x/dpi.y, 3));
+	$(".source-aspect").html(roundToFixed(image.width/image.height, 3));
+	$(".result-dpi").html(roundToFixed((dpi.x+dpi.y)/2, 3));
+	var rw = image.width/viewport.width * postcard.width;
+	var rh = image.height/viewport.height * postcard.height;
+	$(".result-size").html(Math.round(rw/10)+"x"+Math.round(rh/10));
 }
 
 function calcDpi(){

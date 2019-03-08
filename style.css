@@ -48,7 +48,10 @@ canvas {}
 .less-info {display:none;}
 .image-drop-text {pointer-events:none;left:50%;top:50%;position:fixed;transform: translate(-50%, -50%);color:black;font-size:36px;
 }
-.image-state .more {display:none;}
+.image-state .more {display:none;margin-top:0;}
+.image-state .desc-caption {font-weight:bold;margin-top:5px;display:inline-block;}
+.image-state .desc-title {display:inline-block;min-width:137px;}
+.image-state .desc-title:after {content:" =";float:right;padding-right:7px;}
 .image-state .desc {font-size:14px;}
 .image-props {padding:8px;background:#eee;font-size:14px;padding-bottom:8px;}
 .image-props .group {float:left;margin-right:8px;margin-bottom:6px;height:62px;}
