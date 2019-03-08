@@ -60,6 +60,9 @@
 				<input id="image-upload" name="files[]" type="file" accept=".png, .jpg, .jpeg" style="display:none">
 				<input type="submit">
 			</form>
+			<div class="group">
+				<input type="button" class="another" value="Choose another image">
+			</div>
 			<div class="clearfix"></div>
 			<div class="desc">Recommended aspect ratio is ...</div>
 		</div>
