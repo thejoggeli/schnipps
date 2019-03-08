@@ -145,7 +145,7 @@ function applyMenu(){
 	var _border = parseInt($(".image-props .border").val());
 	var _width = parseInt($(".image-props .width").val());
 	var _height = parseInt($(".image-props .height").val());
-	if(_padding < 1) _padding = 1;
+	if(_padding < 0) _padding = 9;
 	if(_border < 0) _padding = 0;
 	if(_width < _padding*2) _width = _padding*2;
 	if(_height < 1) _height = 1;
