@@ -55,7 +55,7 @@
 				<div><span class="label">Height</span> <input class="height" name="height" type="text" readonly></div>
 			</div>
 			<div class="group group-padding"> 
-				<div class="title">Options</div>
+				<div class="title">Options (px)</div>
 				<div><span class="label">Padding</span> <input class="padding" type="text" value="16"> </div>
 				<div><span class="label">Border&nbsp;</span> <input class="border" type="text" value="8"></div>
 			</div>
