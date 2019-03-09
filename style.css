@@ -54,15 +54,16 @@ canvas {}
 .image-state .desc-title:after {content:" =";float:right;padding-right:7px;}
 .image-state .desc {font-size:14px;}
 .image-props {padding:8px;background:#eee;font-size:14px;padding-bottom:8px;}
-.image-props .group {float:left;margin-right:8px;margin-bottom:6px;height:62px;}
+.image-props .group {float:left;margin-right:20px;margin-bottom:6px;height:62px;}
 .image-props .group > div{margin-bottom:2px;}
 .image-props .label {display:inline-block;}
 .image-state form {}
 .image-state .title {font-weight:bold;padding-bottom:1px;}
+.image-state .unit {display:inline-block;padding-left:2px;}
 .image-state .name {max-width:140px;overflow:hidden;white-space:nowrap;text-overflow: ellipsis;}
 .image-state input {border-radius:3px;border:1px solid #888;}
 .image-state input[type=text]:read-only {background:#ddd;}
-.image-state input[type=text] {background:white;width:80px;padding:1px 2px;text-align:center;}
+.image-state input[type=text] {background:white;width:70px;padding:1px 2px;text-align:center;}
 .image-state input[type=button],
 .image-state input[type=submit] {background:#007;border-color:#006;color:white;cursor:pointer;height:41px;width:80px;font-weight:bold;}
 .image-state input[type=submit] {width:auto;padding-left:12px;padding-right:12px;margin-top:19px;}

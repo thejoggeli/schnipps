@@ -141,25 +141,27 @@ $(document).ready(function(){
 	Toast.info("Welcome to the Schnippselisierer", 2.5);
 });
 function applyMenu(){
-	var _padding = parseInt($(".image-props .padding").val());
-	var _border = parseInt($(".image-props .border").val());
-	var _width = parseInt($(".image-props .width").val());
-	var _height = parseInt($(".image-props .height").val());
-	if(_padding < 0) _padding = 9;
-	if(_border < 0) _padding = 0;
-	if(_width < _padding*2) _width = _padding*2;
-	if(_height < 1) _height = 1;
+	var _padding = parseFloat($(".image-props .padding").val());
+	var _border = parseFloat($(".image-props .border").val());
+	var _width = parseFloat($(".image-props .width").val());
+	var _height = parseFloat($(".image-props .height").val());
+	if(_padding < 0) _padding = 0;
+	if(_width < 1) _width = 1;
+	if(_border < 0) _border = 0;
 	$(".image-props .padding").val(_padding);
 	$(".image-props .border").val(_border);
 	$(".image-props .width").val(_width);
 	$(".image-props .height").val(_height);
-	viewport.width = _width;
-	viewport.height = _height;
-	postcard.width = parseInt($(".image-props .card-width").val());
-	postcard.height = parseInt($(".image-props .card-height").val());
+	viewport.width = Math.ceil(image.width/_width);
+	postcard.width = parseFloat($(".image-props .card-width").val());
+	postcard.height = parseFloat($(".image-props .card-height").val());
 	$(".card-aspect").text(roundToFixed(postcard.width/postcard.height, 3));
-	padding.left = padding.right = padding.top = padding.bottom = _padding;
-	border = _border;
+	padding.left = padding.right = padding.top = padding.bottom = Math.ceil(_padding/100*viewport.width);
+	border = Math.ceil(_border/100*viewport.width);
+	$(".width-px").html(viewport.width);
+	$(".border-px").html(border);
+	$(".padding-px").html(padding.left);
+	fixAspectRatio();
 }
 function processFiles(files){
 	var _file = files[0];
@@ -191,8 +193,8 @@ function showState(state){
 	$("."+state+"-state").show();
 	if(state == "image"){
 		var aspect = postcard.width/postcard.height;
-		$(".image-props .width").val(image.width/4);
-		$(".image-props .height").val(Math.round(image.width/4/aspect));
+		$(".image-props .width").val(4);
+		$(".image-props .height").val(4);
 		$(".image-props .resolution").html(image.width + "x" + image.height);
 		$(".image-props .name").text("Image: " + image.name);
 	}
@@ -309,7 +311,6 @@ function drawImage(){
 	if(image === null) return;
 	
 	applyMenu();
-	fixAspectRatio();
 	
 	num_x = Math.ceil(image.width/viewport.width);
 	num_y = Math.ceil(image.height/viewport.height);
@@ -382,13 +383,20 @@ function drawImage(){
 	$(".result-dpi").html(roundToFixed((dpi.x+dpi.y)/2, 3));
 	var rw = 0;
 	var rh = 0;
-	for(var x = 0; x < num_x; x++){
-		rw += parts[x][0].view.width/parts[x][0].outer.width*postcard.width;
+	for(var x = 0; x < num_x-1; x++){
+		rw += parts[x][0].view.width;
 	}
-	for(var y = 0; y < num_y; y++){
-		rh += parts[0][y].view.height/parts[0][y].outer.height*postcard.height;
+	for(var y = 0; y < num_y-1; y++){
+		rh += parts[0][y].view.height;
 	}
-	$(".result-size").html(Math.round(rw/10)+"x"+Math.round(rh/10));
+	var lastx = parts[num_x-1][0];
+	var lasty = parts[0][num_y-1];
+	rw += lastx.src.width-lastx.padding.left;
+	rh += lasty.src.height-lasty.padding.top;
+	rw /= lastx.outer.width;
+	rh /= lasty.outer.height;
+	
+	$(".result-size").html(Math.round(rw*postcard.width/10)+"x"+Math.round(rh*postcard.height/10));
 }
 
 function calcDpi(){
@@ -430,6 +438,7 @@ function fixAspectRatio(){
 			h++;
 		}
 	}
-	$(".image-state .height").val(h-padding.top-padding.bottom);
-	applyMenu();
+	$(".height-px").html(h-padding.top-padding.bottom);
+	$(".image-state .height").val(roundToFixed(image.height/(h-padding.top-padding.bottom), 3));
+	viewport.height = h-padding.top-padding.bottom;
 }

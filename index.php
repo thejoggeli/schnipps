@@ -45,19 +45,25 @@
 	<div class="image-state state">
 		<div class="image-props">
 			<div class="group group-size">
-				<div class="title">Card size (mm)</div>
-				<div><span class="label">Width&nbsp;</span> <input class="card-width" name="width" type="text" value="145"></div>
-				<div><span class="label">Height</span> <input class="card-height" name="height" type="text" value="105"></div>
+				<div class="title">Card size</div>
+				<div>
+					<span class="label">Width&nbsp;</span> 
+					<input class="card-width" name="width" type="text" value="145"><span class="unit">mm</span>
+				</div>
+				<div>
+					<span class="label">Height</span>
+					<input class="card-height" name="height" type="text" value="105"><span class="unit">mm</span>
+				</div>
 			</div>
 			<div class="group group-size">
-				<div class="title">Crop size (px)</div>
+				<div class="title">Number of images</div>
 				<div><span class="label">Width&nbsp;</span> <input class="width" name="width" type="text"></div>
 				<div><span class="label">Height</span> <input class="height" name="height" type="text" readonly></div>
 			</div>
 			<div class="group group-padding"> 
-				<div class="title">Options (px)</div>
-				<div><span class="label">Padding</span> <input class="padding" type="text" value="16"> </div>
-				<div><span class="label">Border&nbsp;</span> <input class="border" type="text" value="8"></div>
+				<div class="title">Options</div>
+				<div><span class="label">Padding</span> <input class="padding" type="text" value="5"><span class="unit">%</span></div>
+				<div><span class="label">Border&nbsp;</span> <input class="border" type="text" value="1.5"><span class="unit">%</span></div>
 			</div>
 			<form id="upload" class="group" method="post" action="upload.php" enctype="multipart/form-data">
 				<input id="image-upload" name="files[]" type="file" accept=".png, .jpg, .jpeg" style="display:none">
@@ -79,6 +85,11 @@
 					<div><span class="desc-title">File</span><span class="name"></span></div>
 					<div><span class="desc-title">Dimensions</span><span class="resolution"></span></div>
 					<div><span class="desc-title">Aspect ratio</span><span class="source-aspect"></span></div>
+					<div><span class="desc-caption">Crop</span></div>
+					<div><span class="desc-title">Width (px)</span><span class="width-px"></span></div>
+					<div><span class="desc-title">Height (px)</span><span class="height-px"></span></div>
+					<div><span class="desc-title">Padding (px)</span><span class="padding-px"></span></div>
+					<div><span class="desc-title">Border (px)</span><span class="border-px"></span></div>
 					<div><span class="desc-caption">Result</span></div>
 					<div><span class="desc-title">DPI avgerage</span><span class="result-dpi"></span></div>
 					<div><span class="desc-title">DPI horizontal</span><span class="dpi-x"></span></div>
