@@ -48,7 +48,7 @@
 			$part = $parts[$x][$y];
 			$partname = str_pad($x, 3, '0', STR_PAD_LEFT) . "_" . str_pad($y, 3, '0', STR_PAD_LEFT) . "_" . $nakedname . ".png";
 			$img = imagecreatetruecolor($part->outer->width, $part->outer->height);
-			$bgcolor = ImageColorAllocate($img, 0xFF, 0xFF, 0xFF);
+			$bgcolor = ImageColorAllocate($img, 0xEE, 0xEE, 0xEE);
 			ImageFilledRectangle($img, 0, 0, $part->outer->width, $part->outer->height, $bgcolor);
 			imagecopymerge(
 				$img, $image,
