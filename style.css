@@ -65,7 +65,10 @@ canvas {}
 .image-state input[type=text]:read-only {background:#ddd;}
 .image-state input[type=text] {background:white;width:70px;padding:1px 2px;text-align:center;}
 .image-state input[type=button],
-.image-state input[type=submit] {background:#007;border-color:#006;color:white;cursor:pointer;height:41px;width:80px;font-weight:bold;}
+.image-state input[type=submit] {background:#007;border-color:#006;color:white;cursor:pointer;height:41px;width:80px;font-weight:bold;
+	margin-left:-5px;
+	margin-right:-5px;
+}
 .image-state input[type=submit] {width:auto;padding-left:12px;padding-right:12px;margin-top:19px;}
 .image-state input[type=button].another {background:white;color:#111;width:auto;padding-left:12px;padding-right:12px;border-color:#111;margin-top:19px;}
 .image-state .group-size input[type=text] {text-align:center;}
